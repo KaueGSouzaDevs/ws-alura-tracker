@@ -1,33 +1,54 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-import BarraLateral from './components/BarraLateral.vue';
-import Formulario from './components/Formulario.vue';
-
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    BarraLateral,
-    Formulario
-  }
-});
-</script>
-
-
-
 <template>
   <main class="columns is-gapless is-multiline">
     <div class="column is-one-quarter">
       <BarraLateral />
     </div>
     <div class="column is-three-quarter">
-      <Formulario />
+      <Formulario @aoSalvarTarefa="salvarTarefa"/>
+      <div v-if="tarefas.length" class="lista">
+        <Tarefa v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa"/>
+      </div>
+      <div v-else class="lista">
+        <p>Nenhuma tarefa realizada!</p>
+      </div>
     </div>
   </main>
 </template>
 
 
 
-<style>
+<script lang="ts">
+import { defineComponent } from 'vue';
+import BarraLateral from './components/BarraLateral.vue';
+import Formulario from './components/Formulario.vue';
+import Tarefa from './components/Tarefa.vue';
+import ITarefa from './interfaces/ITarefa';
 
+
+export default defineComponent({
+  name: 'App',
+  components: {
+    BarraLateral,
+    Formulario,
+    Tarefa
+  },
+  data () {
+    return {
+      tarefas: [] as ITarefa[]
+    }
+  },
+  methods:{
+    salvarTarefa(tarefa: ITarefa) {
+      this.tarefas.push(tarefa)
+    }
+  }
+});
+</script>
+
+
+
+<style scoped>
+.lista {
+  padding: 1.25rem;
+}
 </style>
