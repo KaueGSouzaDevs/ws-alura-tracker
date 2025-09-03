@@ -2,4 +2,5 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import { createApp } from "vue";
 import App from "./App.vue";
 import roteador from "./roteador";
-createApp(App).use(roteador).mount("#app");
+import { key, store } from "./store";
+createApp(App).use(roteador).use(store, key).mount("#app");
