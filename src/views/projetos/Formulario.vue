@@ -18,6 +18,7 @@
 
 <script lang="ts">
 import { key, store } from '@/store';
+import { ADICIONAR_PROJETO, EDITAR_PROJETO } from '@/store/tipo-mutacoes';
 import { defineComponent } from 'vue';
 import { useStore } from 'vuex';
 
@@ -44,9 +45,9 @@ export default defineComponent({
     salvarProjeto() {
 
       if (this.id) {
-        store.commit('EDITAR_PROJETO', { id: this.id, nome: this.nomeDoProjeto });
+        store.commit(EDITAR_PROJETO, { id: this.id, nome: this.nomeDoProjeto });
       } else {
-        store.commit('ADICIONAR_PROJETO', this.nomeDoProjeto);
+        store.commit(ADICIONAR_PROJETO, this.nomeDoProjeto);
       }
       this.nomeDoProjeto = '';
       this.$router.push('/projetos');
