@@ -17,8 +17,9 @@
 </template>
 
 <script lang="ts">
+import { TipoNotificacao } from '@/interfaces/INotificacao';
 import { key, store } from '@/store';
-import { ADICIONAR_PROJETO, EDITAR_PROJETO } from '@/store/tipo-mutacoes';
+import { ADICIONAR_PROJETO, EDITAR_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes';
 import { defineComponent } from 'vue';
 import { useStore } from 'vuex';
 
@@ -50,6 +51,11 @@ export default defineComponent({
         store.commit(ADICIONAR_PROJETO, this.nomeDoProjeto);
       }
       this.nomeDoProjeto = '';
+      this.store.commit(NOTIFICAR, {
+        titulo: 'Projeto criado com sucesso',
+        texto: 'Seu projeto foi criado com sucesso, você já pode adicionar tarefas nele.',
+        tipo: TipoNotificacao.SUCESSO
+      })
       this.$router.push('/projetos');
     }
   },
