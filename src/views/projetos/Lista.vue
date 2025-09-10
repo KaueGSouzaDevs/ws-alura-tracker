@@ -38,6 +38,7 @@
 
 <script lang="ts">
 import { key } from '@/store';
+import { OBTER_PROJETOS } from '@/store/tipo-acoes';
 import { EXCLUIR_PROJETO } from '@/store/tipo-mutacoes';
 import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
@@ -46,6 +47,9 @@ export default defineComponent({
     name: 'ListaProjetosView',
     setup() {
         const store = useStore(key);
+
+        store.dispatch(OBTER_PROJETOS)
+
         return {
             projetos: computed(() => store.state.projetos),
             store
