@@ -11,6 +11,39 @@
     {
       "id": "d301",
       "nome": "Teste Edição 3"
+    },
+    {
+      "id": "48ac",
+      "nome": "teste 2"
+    }
+  ],
+  "tarefas": [
+    {
+      "id": "1",
+      "duracaoEmSegundos": 3600,
+      "descricao": "Estudar Vue",
+      "projeto": {
+        "id": "1",
+        "nome": "Alura Tracker 3.0"
+      }
+    },
+    {
+      "id": "4759",
+      "duracaoEmSegundos": 3,
+      "descricao": "Teste 2",
+      "projeto": {
+        "id": "1",
+        "nome": "Alura Tracker 3.0"
+      }
+    },
+    {
+      "id": "da23",
+      "duracaoEmSegundos": 2,
+      "descricao": "teste 1",
+      "projeto": {
+        "id": "874d",
+        "nome": "Não deveria funcionar"
+      }
     }
   ]
 }
