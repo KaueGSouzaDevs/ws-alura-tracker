@@ -48,6 +48,15 @@
         "id": "874d",
         "nome": "Não deveria funcionar"
       }
+    },
+    {
+      "id": "8e21",
+      "duracaoEmSegundos": 6,
+      "descricao": "Teste padrões de projetos",
+      "projeto": {
+        "id": "51fa",
+        "nome": "Estudando padrões de projeto"
+      }
     }
   ]
 }

@@ -13,14 +13,14 @@
                 </div>
             </div>
             <div class="column">
-                <Temporizador @aoTemporizadorFinalizado="finalizarTarefa" />
+                <Temporizador @aoTemporizadorFinalizado="salvarTarefa" />
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import Temporizador from "./Temporizador.vue";
 import { key } from "@/store";
 import { useStore } from "vuex";
@@ -29,22 +29,22 @@ import { TipoNotificacao } from "@/interfaces/INotificacao";
 export default defineComponent({
     name: "AppFormulario",
     emits: ['aoSalvarTarefa'],
-    data () {
-        return {
-            descricao: '',
-            idProjeto: ''
-        }
-    },
     components: {
         Temporizador
     },
-    methods: {
-        finalizarTarefa(tempoDecorrido: number) : void {
+    setup(props, { emit }) {
+        const store = useStore(key)
+        const descricao = ref("");
+        const idProjeto = ref("");
+        const projetos = computed(() => store.state.projeto.projetos)
 
-            const projeto = this.projetos.find((proj) => proj.id === this.idProjeto);
+
+        const salvarTarefa = (tempoDecorrido: number) : void => {
+
+            const projeto = projetos.value.find((proj) => proj.id === idProjeto.value);
 
             if (!projeto) {
-                this.store.commit('NOTIFICAR', {
+                store.commit('NOTIFICAR', {
                     titulo: 'Ops, algo deu errado',
                     texto: 'Selecione um projeto para a tarefa',
                     tipo: TipoNotificacao.FALHA
@@ -52,20 +52,21 @@ export default defineComponent({
                 return;
             }
 
-            this.$emit('aoSalvarTarefa', {
+            emit('aoSalvarTarefa', {
                 duracaoEmSegundos: tempoDecorrido, 
-                descricao: this.descricao, 
-                projeto: this.projetos.find(proj => proj.id === this.idProjeto)
+                descricao: descricao.value, 
+                projeto: projetos.value.find(proj => proj.id === idProjeto.value)
             });
 
-            this.descricao = '';
+            descricao.value = '';
         }
-    },
-    setup() {
-        const store = useStore(key)
+
+
         return {
-            projetos: computed(() => store.state.projeto.projetos),
-            store
+            descricao,
+            idProjeto,
+            projetos,
+            salvarTarefa
         }
     }
 });
